@@ -8,3 +8,32 @@
 h1, h2, h3, h4, h5, h6 {
   text-transform: capitalize;
 }
+
+.reading-canvas{
+  border: 1px solid #ccc;
+  max-width: 100%;
+
+}
+
+.modal-lg{
+  max-width: 90vw;
+  outline: 8888px solid rgba(0,0,0,0.2);
+    max-height: 80vh;
+}
+
+.modal-content{
+  border-radius: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 80vh;
+  padding-bottom: 20px;
+}
+
+.close{
+  cursor:pointer;
+}
+
+.modal-body{
+    overflow-y: scroll;
+
+}
