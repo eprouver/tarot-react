@@ -39,7 +39,7 @@ class Reading extends React.Component {
         bitmap.y = c.y;
         bitmap.scale = 0.2;
         bitmap.on('click', (evt) => {
-          this.setState({currentCard: c.card});
+          this.setState({currentCard: c});
           document.getElementById('card-modal').style.display = 'block';
         });
 
@@ -66,8 +66,11 @@ class Reading extends React.Component {
     this.state = {
       cards: [],
       currentCard: {
-        suit: 'wands',
-        rank: 1
+        card:{
+          suit: 'wands',
+          rank: 1
+        }
+
       }
     }
   }
@@ -92,11 +95,12 @@ class Reading extends React.Component {
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-            <span className="close" onClick={()=>{document.getElementById('card-modal').style.display = 'none'}}>&times;</span>
+            <h2>{unescape(this.state.currentCard.prompt)}</h2>
+            <span className="close float-right" onClick={()=>{document.getElementById('card-modal').style.display = 'none'}}>&times;</span>
 
             </div>
             <div className="modal-body">
-              <Card suit={this.state.currentCard.suit} rank={this.state.currentCard.rank}></Card>
+              <Card suit={this.state.currentCard.card.suit} rank={this.state.currentCard.card.rank}></Card>
             </div>
           </div>
         </div>
