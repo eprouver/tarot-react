@@ -15,6 +15,19 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+#reading-holder{
+  position:relative;
+}
+
+.popover-holder{
+  position:absolute;
+  pointer-events:none;
+}
+
+.popover-holder .badge{
+  margin-left: -50%;
+}
+
 .modal-lg{
   max-width: 90vw;
   outline: 8888px solid rgba(0,0,0,0.2);

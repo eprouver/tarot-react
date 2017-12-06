@@ -21,6 +21,8 @@ class Reading extends React.Component {
 
   deal(cards) {
     var deck = tarot.cards.slice();
+    var prompt = document.getElementById('my-prompt');
+
     cards.forEach((c) => {
       var rand = _.random(0, deck.length);
       var picked = deck.splice(rand, 1);
@@ -43,6 +45,21 @@ class Reading extends React.Component {
           document.getElementById('card-modal').style.display = 'block';
         });
 
+        bitmap.on('mouseover', (e) => {
+          prompt.style.left = ((c.x + w/2)/ 1200) * 100 + '%';
+          prompt.style.top = ((c.y + h/2) / 1200) * 100 + '%';
+          prompt.style.display = "block";
+
+          this.setState({
+            selectedPrompt: unescape(c.prompt)
+          });
+
+        });
+
+        bitmap.on('mouseout', (e) => {
+          prompt.style.display = "none";
+        });
+
         if (c.rotated) {
           bitmap.rotation = 90;
         }
@@ -58,6 +75,7 @@ class Reading extends React.Component {
 
   componentDidMount() {
     this.stage = new createjs.Stage('myCanvas');
+    this.stage.enableMouseOver(40);
   }
 
   constructor(props) {
@@ -66,7 +84,7 @@ class Reading extends React.Component {
     this.state = {
       cards: [],
       currentCard: {
-        card:{
+        card: {
           suit: 'wands',
           rank: 1
         }
@@ -89,14 +107,23 @@ class Reading extends React.Component {
       <hr/>
       <div id="reading-holder">
         <canvas id="myCanvas" className="reading-canvas" width="1200" height="1200"></canvas>
+        <div id="my-prompt" className="popover-holder animated pulse" style={{"display":"none"}}>
+
+          <div className="badge badge-info">
+            {this.state.selectedPrompt}
+          </div>
+        </div>
       </div>
       <hr/>
+
       <div id="card-modal" className="modal">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-            <h2>{unescape(this.state.currentCard.prompt)}</h2>
-            <span className="close float-right" onClick={()=>{document.getElementById('card-modal').style.display = 'none'}}>&times;</span>
+              <h2>{unescape(this.state.currentCard.prompt)}</h2>
+              <span className="close float-right" onClick={() => {
+                  document.getElementById('card-modal').style.display = 'none'
+                }}>&times;</span>
 
             </div>
             <div className="modal-body">
