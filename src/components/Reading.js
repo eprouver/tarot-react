@@ -28,6 +28,7 @@ class Reading extends React.Component {
       var picked = deck.splice(rand, 1);
 
       c.card = picked[0];
+      c.reversed = (Math.random() > 0.5);
     })
 
     this.setState({cards: cards});
@@ -37,9 +38,12 @@ class Reading extends React.Component {
       var i = new Image();
       i.onload = () => {
         var bitmap = new createjs.Bitmap(i);
-        bitmap.x = c.x;
-        bitmap.y = c.y;
+        bitmap.x = c.x - (c.reversed && (c.rotated)? (h) : 0);;
+        bitmap.y = c.y + (c.reversed && !(c.rotated)? (h) : 0);
+        //bitmap.regX = w/2;
+        //bitmap.regY = h/2;
         bitmap.scale = 0.2;
+        bitmap.scaleY = c.reversed ? -0.2: 0.2;
         bitmap.on('click', (evt) => {
           this.setState({currentCard: c});
           document.getElementById('card-modal').style.display = 'block';
@@ -127,7 +131,7 @@ class Reading extends React.Component {
 
             </div>
             <div className="modal-body">
-              <Card suit={this.state.currentCard.card.suit} rank={this.state.currentCard.card.rank}></Card>
+              <Card suit={this.state.currentCard.card.suit} rank={this.state.currentCard.card.rank} reversed={this.state.currentCard.reversed}></Card>
             </div>
           </div>
         </div>

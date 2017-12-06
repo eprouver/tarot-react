@@ -53,7 +53,7 @@ class Card extends React.Component {
 
       <div className="row">
         <div className="col-sm animated slideInLeft text-center">
-          <img className="mw-100" src={images[card.image]}/>
+          <img className="mw-100" src={images[card.image]} style={{transform: 'scale(' + (this.props.reversed? -1: 1) +')'}}/>
         </div>
         <div className="col-sm animated slideInRight">
           <br/>
