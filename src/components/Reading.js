@@ -35,22 +35,24 @@ class Reading extends React.Component {
 
       if (c.x < minX) {
         minX = c.x;
+      } else if (c.x + w > maxX) {
+        maxX = c.x + w;
       }
       if (c.y < minY) {
         minY = c.y;
+      } else if (c.y + h > maxY) {
+        maxY = c.y + h;
       }
-      if (c.x > maxX) {
-        maxX = c.x;
-      }
-      if (c.y > maxY) {
-        maxY = c.y;
-      }
+
     })
 
-    this.setState({
-      cards: cards,
-      viewBox: [minX, minY, maxX, maxY].join(' ')
-    });
+    setTimeout(() => {
+      this.setState({
+        cards: cards,
+        viewBox: [minX, minY, maxX - minX, maxY - minY].join(' ')
+      });
+    })
+
 
   }
 
@@ -98,6 +100,10 @@ class Reading extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    document.body.style.overflow = 'auto';
+  }
+
   render() {
     return <div>
       <h2>Reading</h2>
@@ -110,13 +116,11 @@ class Reading extends React.Component {
           })
         }
       </div>
-
       <hr/>
-
-      <div id="reading-holder">
-        <svg viewBox={this.state.viewBox} className="mw-100" height="1200" width="1200">
+      <div id="reading-holder" className="text-center">
+        <svg viewBox={this.state.viewBox} className="mw-100" style={{width: 800}}>
           <filter id="linear">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="0.5" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
             <feColorMatrix type="matrix" values="0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 1 0 "/>
           </filter>
 
