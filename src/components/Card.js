@@ -39,13 +39,15 @@ class Card extends React.Component {
 
     return <div className="container">
       <div className="row">
-        <h1 className="col-sm animated slideInLeft text-center">{card.name}:</h1>
+        <div className="col-sm animated slideInLeft text-center flex-center">
+          <h1>{card.name}:</h1>
+        </div>
         <div className="col-sm animated slideInRight">
           {
             card.keywords.map((word, i) => {
-              return <h2 className="text-muted" style={{
+              return <h4 className="text-muted" style={{
                   display: 'inline-block'
-                }} key={i}>{word}&nbsp;&nbsp;</h2>
+                }} key={i}>{word}&nbsp;&nbsp;</h4>
             })
           }
         </div>

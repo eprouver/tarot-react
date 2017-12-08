@@ -9,44 +9,51 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: capitalize;
 }
 
-.reading-canvas{
+.reading-canvas {
   border: 1px solid #ccc;
   max-width: 100%;
-
 }
 
-#reading-holder{
+#reading-holder {
+  position: relative;
+}
+
+.popover-holder {
+  position: fixed;
+  pointer-events: none;
+  width: 0;
+}
+
+.popover-holder .badge {
   position:relative;
-}
-
-.popover-holder{
-  position:absolute;
-  pointer-events:none;
-}
-
-.popover-holder .badge{
   margin-left: -50%;
+  top: -1.5em;
 }
 
-.modal-lg{
-  max-width: 90vw;
-  outline: 8888px solid rgba(0,0,0,0.2);
-    max-height: 80vh;
-}
-
-.modal-content{
-  border-radius: 0;
-  overflow-x: hidden;
+#card-modal {
+  position: fixed;
+  top: 0;
+  background: white;
+  width: 100vw;
+  height: 100vh;
   overflow-y: scroll;
-  max-height: 80vh;
-  padding-bottom: 20px;
+  display: none;
 }
 
-.close{
-  cursor:pointer;
+.close {
+  cursor: pointer;
 }
 
-.modal-body{
-    overflow-y: scroll;
+.modal-body {
+  overflow-y: scroll;
+}
 
+.center-pin {
+  transform-origin: 50% 50%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
