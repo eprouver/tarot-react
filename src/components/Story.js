@@ -62,7 +62,10 @@ const arcs = [
     name: 'Oedipus'
   }
 ];
+
 const images = importAll(require.context('../images/tarot', false, /\.(png|jpe?g|svg)$/));
+const arcImages = importAll(require.context('../images/arcs', false, /\.(png|jpe?g|svg)$/));
+
 import tarot from '../sources/tarot.json';
 import layouts from '../sources/layouts.json';
 import pickles from '../sources/nouns.json';
@@ -85,13 +88,17 @@ class Story extends React.Component {
       };
     });
 
+    let state = {moral: new Array(2).fill().map(makeCard),
+      plot: new Array(3).fill().map(makeCard),
+      humor: humors[~~(Math.random() * humors.length)],
+      arc: arcs[~~(Math.random() * arcs.length)],
+    };
+
     if(setState){
-      this.setState({moral: new Array(2).fill().map(makeCard),
-        plot: new Array(3).fill().map(makeCard),
-        humor: humors[~~(Math.random() * humors.length)],
-        arc: arcs[~~(Math.random() * arcs.length)],
-      });
+      this.setState(state);
     }
+
+    return state;
   }
 
   cardClick(c) {
@@ -103,7 +110,13 @@ class Story extends React.Component {
   constructor(props) {
     super(props);
 
-    this.deal(false);
+    this.state = this.deal(false);
+    this.state.currentCard = {
+      card: {
+        suit: 'wands',
+        rank: 1
+      }
+    };
   }
 
   componentWillUnmount() {
@@ -159,18 +172,19 @@ class Story extends React.Component {
         <div className="row">
           <div className="col-xs-12 col-sm-12 col-md-4">
             <div id="arc" className="">
-              <h4>Plot Arc:</h4>
+              <h5 className="text-muted">Plot Arc:</h5>
               <h4>{this.state.arc.name}</h4>
+              <img className="mw-100" style={{transition: 'all 0.5s ease'}} src={arcImages[this.state.arc.name + '.png']}/>
             </div>
             <hr/>
             <div id="humor" className="">
-              <h4>Surprise Humor Pattern:</h4>
+              <h5 className="text-muted">Surprise Humor Pattern:</h5>
               <h4>{this.state.humor.name}</h4>
-              <p>{this.state.humor.type}</p>
+              <p>Type: {this.state.humor.type}</p>
             </div>
           </div>
           <div className="col-xs-12 col-sm-12 col-md-8">
-            <h4>Moral</h4>
+            <h4>Moral:</h4>
             <div id="moral" className="row justify-content-center">
               <div className="col col-sm-4">{linker(this.state.moral[0])}</div>
               <div className="col-xs-1">
@@ -185,15 +199,15 @@ class Story extends React.Component {
             <div id="plot" className="row">
               <div className="col-xs-12 col-sm-4">
                 {linker(this.state.plot[0])}
-                <div className="alert alert-success">{this.state.plot[0].pickle}</div>
+                <div className="alert alert-success capitalize">{this.state.plot[0].pickle}</div>
               </div>
               <div className="col-xs-12 col-sm-4">
                 {linker(this.state.plot[1])}
-                <div className="alert alert-success">{this.state.plot[1].pickle}</div>
+                <div className="alert alert-success capitalize">{this.state.plot[1].pickle}</div>
               </div>
               <div className="col-xs-12 col-sm-4">
                 {linker(this.state.plot[2])}
-                <div className="alert alert-success">{this.state.plot[2].pickle}</div>
+                <div className="alert alert-success capitalize">{this.state.plot[2].pickle}</div>
               </div>
             </div>
           </div>

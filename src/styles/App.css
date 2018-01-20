@@ -46,6 +46,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   top: 1em;
   right: 1em;
+  z-index: 9;
 }
 
 .modal-body {
@@ -109,4 +110,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 3em;
   display: inline-block;
   animation: wobble 3s infinite;
+}
+
+.capitalize{
+  text-transform: capitalize;
 }
