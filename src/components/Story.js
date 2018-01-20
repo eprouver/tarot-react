@@ -49,17 +49,23 @@ const humors = [
 ];
 const arcs = [
   {
-    name: 'Rise'
+    name: 'Rise',
+    orientations: [false, false, false]
   }, {
-    name: 'Fall'
+    name: 'Fall',
+    orientations: [true, true, true]
   }, {
-    name: 'Rebound'
+    name: 'Rebound',
+    orientations: [true, true, false]
   }, {
-    name: 'Icarus'
+    name: 'Icarus',
+    orientations: [false, false, true]
   }, {
-    name: 'Cinderella'
+    name: 'Cinderella',
+    orientations: [false, true, false]
   }, {
-    name: 'Oedipus'
+    name: 'Oedipus',
+    orientations: [true, false, true]
   }
 ];
 
@@ -93,6 +99,10 @@ class Story extends React.Component {
       humor: humors[~~(Math.random() * humors.length)],
       arc: arcs[~~(Math.random() * arcs.length)],
     };
+
+    state.plot.forEach((c, i) => {
+      c.reversed = state.arc.orientations[i];
+    })
 
     if(setState){
       this.setState(state);
@@ -171,17 +181,18 @@ class Story extends React.Component {
       <div className="container-fluid text-center">
         <div className="row">
           <div className="col-xs-12 col-sm-12 col-md-4">
+            <div id="humor" className="">
+              <h5 className="text-muted">Surprise Humor Pattern:</h5>
+              <h4>{this.state.humor.name}</h4>
+              <p>Type: {this.state.humor.type}</p>
+            </div>
+            <hr/>
             <div id="arc" className="">
               <h5 className="text-muted">Plot Arc:</h5>
               <h4>{this.state.arc.name}</h4>
               <img className="mw-100" style={{transition: 'all 0.5s ease'}} src={arcImages[this.state.arc.name + '.png']}/>
             </div>
             <hr/>
-            <div id="humor" className="">
-              <h5 className="text-muted">Surprise Humor Pattern:</h5>
-              <h4>{this.state.humor.name}</h4>
-              <p>Type: {this.state.humor.type}</p>
-            </div>
           </div>
           <div className="col-xs-12 col-sm-12 col-md-8">
             <h4>Moral:</h4>
