@@ -16,6 +16,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #reading-holder {
   position: relative;
+  height: 80vh;
 }
 
 .popover-holder {
@@ -25,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .popover-holder .badge {
-  position:relative;
+  position: relative;
   margin-left: -50%;
   top: -1.5em;
 }
@@ -42,6 +43,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .close {
   cursor: pointer;
+  position: fixed;
+  top: 1em;
+  right: 1em;
 }
 
 .modal-body {
@@ -56,4 +60,53 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+#reading-list {
+  line-height: 3em;
+}
+
+.pickle-text {
+  fill: white;
+  font-size: 10px
+}
+
+.pickle-text-back {
+  fill: green;
+}
+
+.pickle-btn-holder {
+  display: none;
+  cursor: pointer;
+  height: 20px;
+  width: 50px;
+}
+
+.c-holder:hover .pickle-btn-holder {
+  display: block;
+}
+
+.final-pickle {
+  pointer-events: none;
+}
+
+.final-pickle-text-back {
+  fill: white;
+  stroke: black;
+}
+
+.final-pickle-text {
+  font-size: 16px;
+  transform: translate(40px, -5px);
+  text-anchor: middle;
+}
+
+.reversed {
+  transform: scale(-1);
+}
+
+.question {
+  font-size: 3em;
+  display: inline-block;
+  animation: wobble 3s infinite;
 }

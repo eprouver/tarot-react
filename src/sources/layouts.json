@@ -1,6 +1,6 @@
 {
   "layouts": [{
-    "name": "Sample",
+    "name": "C. Cross",
     "cards": [{
       "x": 359,
       "y": 343,
@@ -157,6 +157,161 @@
       "name": "c_3",
       "rotated": false,
       "prompt": "Future"
+    }]
+  }, {
+    "name": "7 Card Horseshoe",
+    "cards": [{
+      "x": 0,
+      "y": 0,
+      "name": "c_6",
+      "prompt": "The%20past"
+    }, {
+      "x": 45,
+      "y": 80,
+      "name": "c_7",
+      "rotated": false,
+      "prompt": "The%20present"
+    }, {
+      "x": 95,
+      "y": 157,
+      "name": "c_8",
+      "rotated": false,
+      "prompt": "Hidden%20influences"
+    }, {
+      "x": 142,
+      "y": 232,
+      "name": "c_9",
+      "rotated": false,
+      "prompt": "The%20asker"
+    }, {
+      "x": 193,
+      "y": 155,
+      "name": "c_10",
+      "rotated": false,
+      "prompt": "The%20influence%20of%20others"
+    }, {
+      "x": 237,
+      "y": 74,
+      "name": "c_11",
+      "rotated": false,
+      "prompt": "What%20should%20be%20done"
+    }, {
+      "x": 280,
+      "y": 1,
+      "name": "c_12",
+      "rotated": false,
+      "prompt": "The%20final%20outcome"
+    }]
+  }, {
+    "name": "Six Card Pentagram",
+    "cards": [{
+      "x": 318,
+      "y": 249,
+      "name": "c_1",
+      "rotated": false,
+      "prompt": "The%20significator%20/%20the%20asker"
+    }, {
+      "x": 422,
+      "y": 180,
+      "name": "c_2",
+      "rotated": false,
+      "prompt": "What%20is%20holding%20the%20asker%20in%20place"
+    }, {
+      "x": 401,
+      "y": 316,
+      "name": "c_3",
+      "rotated": false,
+      "prompt": "The%20effect%20of%20external%20sources"
+    }, {
+      "x": 237,
+      "y": 320,
+      "name": "c_4",
+      "rotated": false,
+      "prompt": "The%20askers%20internal%20will%20/%20energies"
+    }, {
+      "x": 211,
+      "y": 174,
+      "name": "c_5",
+      "rotated": false,
+      "prompt": "What%20must%20be%20learned"
+    }, {
+      "x": 316,
+      "y": 105,
+      "name": "c_6",
+      "rotated": false,
+      "prompt": "The%20end%20result"
+    }]
+  }, {
+    "name": "Relationship's Heart",
+    "cards": [{
+      "x": 283,
+      "y": 168,
+      "name": "c_1",
+      "rotated": false,
+      "prompt": "How%20you%20feel%20about%20your%20relationship"
+    }, {
+      "x": 392,
+      "y": 168,
+      "name": "c_2",
+      "rotated": false,
+      "prompt": "How%20your%20partner%20feels%20towards%20you"
+    }, {
+      "x": 248,
+      "y": 298,
+      "name": "c_3",
+      "rotated": false,
+      "prompt": "What%20brought%20you%20together"
+    }, {
+      "x": 335,
+      "y": 298,
+      "name": "c_4",
+      "rotated": false,
+      "prompt": "What%20keeps%20you%20together"
+    }, {
+      "x": 421,
+      "y": 298,
+      "name": "c_5",
+      "rotated": false,
+      "prompt": "Where%20the%20relationship%20is%20weak"
+    }, {
+      "x": 335,
+      "y": 434,
+      "name": "c_6",
+      "rotated": false,
+      "prompt": "What%20needs%20to%20happen"
+    }]
+  }, {
+    "name": "Success' Arrow",
+    "cards": [{
+      "x": 395,
+      "y": 359,
+      "name": "c_1",
+      "rotated": false,
+      "prompt": "Your%20major%20concern%20or%20obstacle"
+    }, {
+      "x": 300,
+      "y": 362,
+      "name": "c_2",
+      "rotated": false,
+      "prompt": "Your%20challenges%20and%20complications"
+    }, {
+      "x": 488,
+      "y": 359,
+      "name": "c_3",
+      "rotated": false,
+      "prompt": "The%20hidden%20factors"
+    }, {
+      "x": 303,
+      "y": 217,
+      "name": "c_4",
+      "rotated": false,
+      "prompt": "new%20ideas%2C%20people%2C%20or%20things%20that%20can%20help%20you%20grow"
+    }, {
+      "x": 300,
+      "y": 506,
+      "name": "c_5",
+      "rotated": false,
+      "prompt": "How%20to%20approach%20the%20future"
     }]
   }]
 }

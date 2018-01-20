@@ -16,6 +16,8 @@ class Card extends React.Component {
   constructor(props) {
     super(props);
 
+    window.scrollTo(0,0)
+
     this.state = {
       suit: this.props.match
         ? this.props.match.params.suit
@@ -55,7 +57,7 @@ class Card extends React.Component {
 
       <div className="row">
         <div className="col-sm animated slideInLeft text-center">
-          <img className="mw-100" src={images[card.image]} style={{transform: 'scale(' + (this.props.reversed? -1: 1) +')'}}/>
+          <img className={"mw-100 " + (this.props.reversed? 'reversed': '')} src={images[card.image]}/>
         </div>
         <div className="col-sm animated slideInRight">
           <br/>

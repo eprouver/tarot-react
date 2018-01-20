@@ -7,6 +7,8 @@ import Home from './Home.js';
 import Card from './Card.js';
 import Layout from './Layout.js';
 import Reading from './Reading.js';
+import Story from './Story.js';
+import Kcard from './Kcard.js';
 
 
 const Main = () => {
@@ -22,7 +24,13 @@ const Main = () => {
           <Link className="nav-link" to="/reading">Reading</Link>
         </li>
         <li className="nav-item">
+          <Link className="nav-link" to="/story">Story</Link>
+        </li>
+        <li className="nav-item">
           <Link className="nav-link" to="/layout">New Layout</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/kcard">Katerina Mode</Link>
         </li>
       </ul>
       <br/>
@@ -32,9 +40,10 @@ const Main = () => {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/reading" component={Reading}/>
+          <Route path="/story" component={Story}/>
           <Route path="/layout" component={Layout}/>
           <Route path="/card/:suit/:rank" component={Card}/>
-
+          <Route path="/kcard" component={Kcard}/>
         </Switch>
 
       </div>
