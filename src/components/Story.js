@@ -20,31 +20,44 @@ function importAll(r) {
   return images;
 }
 
+const patterns = {
+  Fidelity: 'A set of ( items || concepts ) and how they exist in a single context',
+  Magnitude: 'One ( item || concept ) and how it exists in a set of contexts'
+};
+
 const humors = [
   {
     name: 'Positive Repetition',
-    type: 'Fidelity'
+    type: 'Fidelity',
+    descrip: 'A catch phrase or common pattern of speech'
   }, {
     name: 'Division',
-    type: 'Fidelity'
+    type: 'Fidelity',
+    descrip: 'Comparing the parts of an item or concept'
   }, {
     name: 'Completion',
-    type: 'Fidelity'
+    type: 'Fidelity',
+    descrip: 'Adding missing items or concepts to complete a context'
   }, {
     name: 'Translation',
-    type: 'Fidelity'
+    type: 'Fidelity',
+    descrip: 'Unifying the perception of many items / concepts'
   }, {
     name: 'Opposition',
-    type: 'Magnitude'
+    type: 'Magnitude',
+    descrip: 'One item or concept in contrasting contexts'
   }, {
     name: 'Application',
-    type: 'Magnitude'
+    type: 'Magnitude',
+    descrip: 'Using an item or concept in unexpected ways'
   }, {
     name: 'Qualifiation',
-    type: 'Magnitude'
+    type: 'Magnitude',
+    descrip: 'Adding information specify the contexts of an item or concept'
   }, {
     name: 'Scale',
-    type: 'Magnitude'
+    type: 'Magnitude',
+    descrip: 'Repetition of an item or concept at different levels'
   }
 ];
 const arcs = [
@@ -150,7 +163,7 @@ class Story extends React.Component {
               : '')} src={images[pos.card.image]}/><br/>
           <div className="card-img-overlay">
             <p style={{
-                'text-transform' : 'capitalize'
+                'textTransform' : 'capitalize'
               }}>{pos.card.name}
               {
                 pos.reversed
@@ -184,7 +197,9 @@ class Story extends React.Component {
             <div id="humor" className="">
               <h5 className="text-muted">Surprise Humor Pattern:</h5>
               <h4>{this.state.humor.name}</h4>
-              <p>Type: {this.state.humor.type}</p>
+              <h5>{this.state.humor.descrip}</h5>
+              <p className="text-muted">{this.state.humor.type}: {patterns[this.state.humor.type]}</p>
+
             </div>
             <hr/>
             <div id="arc" className="">
