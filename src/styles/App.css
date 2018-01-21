@@ -115,3 +115,20 @@ h1, h2, h3, h4, h5, h6 {
 .capitalize{
   text-transform: capitalize;
 }
+
+.c-level {
+  font-size: 1.5vw;
+}
+.c-circle {
+  border: 1px solid #ccc;
+  border-radius: 10em;
+  padding: 1em;
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  background-color: #ddd;
+}
+
+.c-circle.active, .active .c-circle {
+  background-color: #fefd4b;
+}
