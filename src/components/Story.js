@@ -200,11 +200,9 @@ class Story extends React.Component {
     }
 
     return <div>
-      <h2>Story</h2>
-      <br/>
-
-      <div className="btn btn-success" onClick={this.deal.bind(this, true)}>New Story</div>
-      <br/>
+      <h2>Story
+        <div className="btn btn-success float-right" onClick={this.deal.bind(this, true)}>New Story</div>
+      </h2>
       <hr/>
       <div className="container-fluid text-center">
         <div className="row">
@@ -242,15 +240,14 @@ class Story extends React.Component {
               <h5 className="text-muted">Plot Arc:</h5>
               <div className="row">
                 <div className="col-4">
-                <img className="mw-100" style={{
-                    transition: 'all 0.5s ease'
-                  }} src={arcImages[this.state.arc.name + '.png']}/>
+                  <img className="mw-100" style={{
+                      transition: 'all 0.5s ease'
+                    }} src={arcImages[this.state.arc.name + '.png']}/>
                 </div>
                 <div className="col">
-                <h4>{this.state.arc.name}</h4>
+                  <h4>{this.state.arc.name}</h4>
                 </div>
-                </div>
-
+              </div>
 
             </div>
 

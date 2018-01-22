@@ -120,15 +120,16 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.5vw;
 }
 .c-circle {
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 10em;
   padding: 1em;
   position: relative;
   display: inline-block;
   line-height: 0;
   background-color: #ddd;
+  transition: background-color 0.5s ease;
 }
 
 .c-circle.active, .active .c-circle {
-  background-color: #fefd4b;
+  background-color: #28a745;
 }
