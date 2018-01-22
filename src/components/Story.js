@@ -28,7 +28,7 @@ const patterns = {
 const affectLevels = [
   {
     name: 'Autonomy',
-    descrip: 'Just the self or immediate friends and family'
+    descrip: 'The self or immediate friends and family'
   }, {
     name: 'Community',
     descrip: 'The wider community, town, country'
@@ -207,7 +207,24 @@ class Story extends React.Component {
       <div className="container-fluid text-center">
         <div className="row">
           <div className="col-xs-12 col-sm-12 col-md-4">
-            <h5 className="text-muted">Reach of the Story</h5>
+          <div id="arc" className="">
+            <h5 className="text-muted">Plot Arc:</h5>
+            <div className="row">
+              <div className="col-4">
+                <img className="mw-100" style={{
+                    transition: 'all 0.5s ease'
+                  }} src={arcImages[this.state.arc.name + '.png']}/>
+              </div>
+              <div className="col">
+                <h4>{this.state.arc.name}</h4>
+              </div>
+            </div>
+
+          </div>
+
+          <hr/>
+
+            <h5 className="text-muted">Story Effect:</h5>
             <div className="row">
               <div className="col-4">
                 <div className="c-level">
@@ -229,29 +246,14 @@ class Story extends React.Component {
               </div>
 
               <div className="col">
-                <h4>{affectLevels[this.state.affectLevel].name}</h4>
+                <h4>{this.state.arc.orientations[2] ? 'Breaks': 'Restores'} {affectLevels[this.state.affectLevel].name}</h4>
                 <h5>{affectLevels[this.state.affectLevel].descrip}</h5>
               </div>
             </div>
 
             <hr/>
 
-            <div id="arc" className="">
-              <h5 className="text-muted">Plot Arc:</h5>
-              <div className="row">
-                <div className="col-4">
-                  <img className="mw-100" style={{
-                      transition: 'all 0.5s ease'
-                    }} src={arcImages[this.state.arc.name + '.png']}/>
-                </div>
-                <div className="col">
-                  <h4>{this.state.arc.name}</h4>
-                </div>
-              </div>
 
-            </div>
-
-            <hr/>
 
             <div id="humor" className="">
               <h5 className="text-muted">Surprise Humor Pattern:</h5>
