@@ -1,10 +1,7 @@
 import React from 'react';
 import Card from './Card.js';
+import { patterns, affectLevels, humors, arcs } from './meaningBlocks';
 import _ from 'underscore';
-
-var w = 70,
-  h = 120,
-  margin = 40;
 
 function importAll(r) {
   let images = {};
@@ -20,86 +17,10 @@ function importAll(r) {
   return images;
 }
 
-const patterns = {
-  Fidelity: 'A set of ( items || concepts ) and how they exist in a single context',
-  Magnitude: 'One ( item || concept ) and how it exists in a set of contexts'
-};
-
-const affectLevels = [
-  {
-    name: 'Autonomy',
-    descrip: 'The self or immediate friends and family'
-  }, {
-    name: 'Community',
-    descrip: 'The wider community, town, country'
-  }, {
-    name: 'Divinity',
-    descrip: 'Humanity, morality, fundamental logic, basic truths'
-  }
-];
-
-const humors = [
-  {
-    name: 'Positive Repetition',
-    type: 'Fidelity',
-    descrip: 'A catch phrase or common pattern of speech'
-  }, {
-    name: 'Division',
-    type: 'Fidelity',
-    descrip: 'Comparing the parts of an item or concept'
-  }, {
-    name: 'Completion',
-    type: 'Fidelity',
-    descrip: 'Adding missing items or concepts to complete a context'
-  }, {
-    name: 'Translation',
-    type: 'Fidelity',
-    descrip: 'Unifying the perception of many items / concepts'
-  }, {
-    name: 'Opposition',
-    type: 'Magnitude',
-    descrip: 'One item or concept in contrasting contexts'
-  }, {
-    name: 'Application',
-    type: 'Magnitude',
-    descrip: 'Using an item or concept in unexpected ways'
-  }, {
-    name: 'Qualifiation',
-    type: 'Magnitude',
-    descrip: 'Adding information specify the contexts of an item or concept'
-  }, {
-    name: 'Scale',
-    type: 'Magnitude',
-    descrip: 'Repetition of an item or concept at different levels'
-  }
-];
-const arcs = [
-  {
-    name: 'Rise',
-    orientations: [false, false, false]
-  }, {
-    name: 'Fall',
-    orientations: [true, true, true]
-  }, {
-    name: 'Rebound',
-    orientations: [true, true, false]
-  }, {
-    name: 'Icarus',
-    orientations: [false, false, true]
-  }, {
-    name: 'Cinderella',
-    orientations: [false, true, false]
-  }, {
-    name: 'Oedipus',
-    orientations: [true, false, true]
-  }
-];
-
 const images = importAll(require.context('../images/tarot', false, /\.(png|jpe?g|svg)$/));
 const arcImages = importAll(require.context('../images/arcs', false, /\.(png|jpe?g|svg)$/));
 
 import tarot from '../sources/tarot.json';
-import layouts from '../sources/layouts.json';
 import pickles from '../sources/nouns.json';
 
 class Story extends React.Component {
@@ -161,43 +82,45 @@ class Story extends React.Component {
     document.body.style.overflow = 'auto';
   }
 
-  render() {
-    const linker = (pos, i) => {
-      if (!pos) {
-        return '';
-      }
-
-      return <div className="card bg-dark text-white" key={i}>
-        <div onClick={this.cardClick.bind(this, pos)}>
-          <br/>
-          <img style={{
-              opacity: 0.35
-            }} className={"card-img w-75 " + (
-              pos.reversed
-              ? 'reversed'
-              : '')} src={images[pos.card.image]}/><br/>
-          <div className="card-img-overlay">
-            <p style={{
-                'textTransform' : 'capitalize'
-              }}>{pos.card.name}
-              {
-                pos.reversed
-                  ? ' (Reversed)'
-                  : ''
-              }</p>
-            {
-              pos.card.keywords.map((word, i) => {
-                return <div key={i}>
-                  {word}&nbsp;
-                </div>
-              })
-            }
-
-          </div>
-          <br/>
-        </div>
-      </div>
+  linker(pos, i) {
+    if (!pos) {
+      return '';
     }
+
+    return <div className="card bg-dark text-white" key={i}>
+      <div onClick={this.cardClick.bind(this, pos)}>
+        <br/>
+        <img style={{
+            opacity: 0.35
+          }} className={'card-img w-75 ' + (
+            pos.reversed
+            ? 'reversed'
+            : '')} src={images[pos.card.image]}/><br/>
+        <div className="card-img-overlay">
+          <p style={{
+              'textTransform' : 'capitalize'
+            }}>{pos.card.name}
+            {
+              pos.reversed
+                ? ' (Reversed)'
+                : ''
+            }</p>
+          {
+            pos.card.keywords.map((word, i) => {
+              return <div key={i}>
+                {word}&nbsp;
+              </div>
+            })
+          }
+
+        </div>
+        <br/>
+      </div>
+    </div>
+  }
+
+  render() {
+
 
     return <div>
       <h2>Story
@@ -228,15 +151,15 @@ class Story extends React.Component {
             <div className="row">
               <div className="col-4">
                 <div className="c-level">
-                  <div className={"c-circle " + (
+                  <div className={'c-circle ' + (
                       this.state.affectLevel === 2
                       ? 'active'
                       : '')}>
-                    <div className={"c-circle " + (
+                    <div className={'c-circle ' + (
                         this.state.affectLevel === 1
                         ? 'active'
                         : '')}>
-                      <div className={"c-circle " + (
+                      <div className={'c-circle ' + (
                           this.state.affectLevel === 0
                           ? 'active'
                           : '')}></div>
@@ -266,27 +189,27 @@ class Story extends React.Component {
           <div className="col-xs-12 col-sm-12 col-md-8">
             <h4>Moral:</h4>
             <div id="moral" className="row justify-content-center">
-              <div className="col col-sm-4">{linker(this.state.moral[0])}</div>
+              <div className="col col-sm-4">{this.linker(this.state.moral[0])}</div>
               <div className="col-xs-1">
                 <br/>
                 <br/>
                 <h1>=</h1>
               </div>
-              <div className="col col-sm-4">{linker(this.state.moral[1])}</div>
+              <div className="col col-sm-4">{this.linker(this.state.moral[1])}</div>
             </div>
             <br/>
             <h4>Plot:</h4>
             <div id="plot" className="row">
               <div className="col-xs-12 col-sm-4">
-                {linker(this.state.plot[0])}
+                {this.linker(this.state.plot[0])}
                 <div className="alert alert-success capitalize">{this.state.plot[0].pickle}</div>
               </div>
               <div className="col-xs-12 col-sm-4">
-                {linker(this.state.plot[1])}
+                {this.linker(this.state.plot[1])}
                 <div className="alert alert-success capitalize">{this.state.plot[1].pickle}</div>
               </div>
               <div className="col-xs-12 col-sm-4">
-                {linker(this.state.plot[2])}
+                {this.linker(this.state.plot[2])}
                 <div className="alert alert-success capitalize">{this.state.plot[2].pickle}</div>
               </div>
             </div>

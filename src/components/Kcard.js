@@ -62,7 +62,7 @@ class Kcard extends React.Component {
 
             <img style={{
                 opacity: 0.35
-              }} className={"card-img w-75 " + (
+              }} className={'card-img w-75 ' + (
                 pos.reversed
                 ? 'reversed'
                 : '')} src={images[pos.card.image]}/><br/>

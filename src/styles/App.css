@@ -83,9 +83,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 50px;
 }
 
-.c-holder:hover .pickle-btn-holder {
+/* .c-holder:hover .pickle-btn-holder {
   display: block;
-}
+} */
 
 .final-pickle {
   pointer-events: none;
@@ -117,7 +117,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .c-level {
-  font-size: 1.5vw;
+  font-size: 22px;
 }
 .c-circle {
   border: 2px solid #ccc;
@@ -132,4 +132,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .c-circle.active, .active .c-circle {
   background-color: #28a745;
+}
+
+.card-img-overlay {
+  padding: 5px;
+}
+
+.main-row > td {
+  padding-bottom: 20px;
 }

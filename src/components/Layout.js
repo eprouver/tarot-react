@@ -46,10 +46,10 @@ class Layout extends React.Component {
   }
 
   addCard() {
-    var card = new createjs.Shape();
-    var container = new createjs.Container();
-    var rotate = new createjs.Shape();
-    var remove = new createjs.Shape();
+    var card = new window.createjs.Shape();
+    var container = new window.createjs.Container();
+    var rotate = new window.createjs.Shape();
+    var remove = new window.createjs.Shape();
 
     card.graphics.setStrokeStyle(2).beginStroke("black").beginFill('gray').drawRect(0, 0, w, h);
     container.on("pressmove", (evt) => {
@@ -66,14 +66,14 @@ class Layout extends React.Component {
       this.updateCard(container);
     });
 
-    container.on('click', (evt) => {
+    container.on('click', () => {
 
       this.selectContainer(container);
 
     })
 
     rotate.graphics.setStrokeStyle(2).beginStroke("black").beginFill('blue').drawRect(0, 0, 20, 20);
-    rotate.on("click", (evt) => {
+    rotate.on("click", () => {
       container.rotation = container.rotation == 90
         ? 0
         : 90;
@@ -82,7 +82,7 @@ class Layout extends React.Component {
     });
 
     remove.graphics.setStrokeStyle(2).beginStroke("black").beginFill('red').drawRect(w - 20, h - 20, 20, 20);
-    remove.on("click", (evt) => {
+    remove.on("click", () => {
       this.removeCard(container);
     })
 
@@ -93,7 +93,7 @@ class Layout extends React.Component {
 
     container.name = _.uniqueId('c_');
 
-    var label = new createjs.Text(container.name, "20px Arial", "white");
+    var label = new window.createjs.Text(container.name, "20px Arial", "white");
     label.y = (h / 2) - 10;
     label.x = (w / 10);
     container.addChild(label);
@@ -105,7 +105,7 @@ class Layout extends React.Component {
   }
 
   componentDidMount() {
-    this.stage = new createjs.Stage('myCanvas');
+    this.stage = new window.createjs.Stage('myCanvas');
   }
 
   constructor(props) {
