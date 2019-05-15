@@ -10,8 +10,13 @@ const arcImages = importAll(require.context('../images/arcs', false, /\.(png|jpe
 
 import tarot from '../sources/tarot.json';
 import places from '../sources/places.json';
+import names from '../sources/names.json';
 
 export default class Story2 extends Story {
+
+  makeName() {
+    return `${names.firstNames[~~ (Math.random() * names.firstNames.length)]} ${names.lastNames[~~ (Math.random() * names.lastNames.length)]}`;
+  }
 
   deal(setState) {
     let deck = tarot.cards.slice();
@@ -34,6 +39,10 @@ export default class Story2 extends Story {
       affectLevel: ~~ (Math.random() * 3),
       conflict: conflicts[~~ (Math.random() * conflicts.length)],
       setting: places.places[~~ (Math.random() * places.places.length)],
+      characters: {
+        hero: this.makeName(),
+        foil: this.makeName(),
+      },
     };
 
     state.plot.forEach((c, i) => {
@@ -48,9 +57,10 @@ export default class Story2 extends Story {
   }
 
   render() {
+    const contentClass = "d-flex justify-content-between flex-column h-100";
 
     const moral = () => {
-      return <div>
+      return <div className={contentClass}>
         <h5 className="text-muted">Explores How:</h5>
           <table className="table-sm">
           <tbody>
@@ -73,7 +83,7 @@ export default class Story2 extends Story {
     };
 
     const effect = () => {
-      return <div>
+      return <div className={contentClass}>
       <h5 className="text-muted">Conflict Effect:</h5>
       <h5>{this.state.arc.orientations[2] ? 'Breaks': 'Restores'} {affectLevels[this.state.affectLevel].name}</h5>
       <p>{affectLevels[this.state.affectLevel].descrip}</p>
@@ -100,20 +110,30 @@ export default class Story2 extends Story {
     }
 
     const humor = () => {
-      return <div id="humor" className="">
+      return <div id="humor" className={contentClass}>
         <h5 className="text-muted">Humor Pattern:</h5>
         <h4>{this.state.humor.name}</h4>
         <p>{this.state.humor.descrip}</p>
-        <h5>{this.state.humor.type}</h5>
-        <p>{patterns[this.state.humor.type]}</p>
+        <p>
+          Sample Item:&nbsp;
+          <span className="badge badge-info badge-xl">
+            { this.addPickle() }
+          </span>
+        </p>
+        <div className="card pt-2">
+          <h6>&#x26A0; {this.state.humor.type}</h6>
+          <p className="m-1">{patterns[this.state.humor.type]}</p>
+        </div>
       </div>
     }
 
     const conflict = () => {
-      return <div>
+      return <div className={contentClass}>
         <h5 className="text-muted">Central Conflict:</h5>
-        <h3><strong>{this.state.conflict.title}</strong></h3>
-        <h5>{this.state.conflict.explain}</h5>
+        <h4><strong>{this.state.conflict.title}</strong></h4>
+        <p>{this.state.conflict.explain}</p>
+
+        { this.linker(this.state.story[2]) }
       </div>
     }
 
@@ -151,10 +171,21 @@ export default class Story2 extends Story {
           </div>
       }
 
-      return <table className="table table-sm">
+      const pickle = (txt) => {
+        return <div className="badge badge-success">
+          {txt}
+          </div>
+      }
+
+      return <table id="main-story" className="table table-sm" style={{backgroundImage: `url(${arcImages[this.state.arc.name + '.png']})`}}>
       <tr>
-        <td colSpan={6}>
-        <h5 className="text-muted">Main Story:</h5>
+        <td colSpan={4}> <br/>
+        <h2 className="text-muted">Main Story:</h2>
+        </td>
+        <td colSpan={2}>
+        Legend:<br/>
+        { place('card position') }
+        { pickle('optional prompt') } <br/><br/>
         </td>
       </tr>
              <tr>
@@ -162,6 +193,7 @@ export default class Story2 extends Story {
                <td>
                  { place('Starting Hero') }
                  {this.linker(this.state.story[1])}
+                 { pickle(this.state.characters.hero) }
                </td>
                <td colSpan={2}></td>
                <td>
@@ -173,27 +205,33 @@ export default class Story2 extends Story {
              <tr>
                <td>
                  { place('The World') }
-                 {this.linker(this.state.story[0])}
+                 { this.linker(this.state.story[0])}
+                 { pickle(this.state.setting) }
                </td>
                <td>
                  { place('The Conflict') }
-                 {this.linker(this.state.story[2])}
+                 { this.linker(this.state.story[2])}
+                 { pickle(this.state.conflict.title) }
                </td>
                <td>
                  { place('Major trial') }
-                 {this.linker(this.state.story[4])}
+                 { this.linker(this.state.story[4])}
+                 { pickle(this.state.story[4].pickle) }
                </td>
                <td>
                  { place('Hero reinvests') }
-                 {this.linker(this.state.story[5])}
+                 { this.linker(this.state.story[5])}
+                 { pickle(this.state.story[5].pickle) }
                </td>
                <td>
                  { place('Finale') }
-                 {this.linker(this.state.story[7])}
+                 { this.linker(this.state.story[7])}
+                 { pickle(this.state.story[7].pickle) }
                </td>
                <td>
                  { place('New World') }
-                 {this.linker(this.state.story[9])}
+                 { this.linker(this.state.story[9])}
+                 { pickle(this.state.story[9].pickle) }
                </td>
              </tr>
              <tr>
@@ -201,6 +239,7 @@ export default class Story2 extends Story {
                <td>
                  { place('Foil') }
                  {this.linker(this.state.story[3])}
+                 { pickle(this.state.characters.foil) }
                </td>
                <td colSpan={2}></td>
                <td>
@@ -214,7 +253,7 @@ export default class Story2 extends Story {
     }
 
     const arc = () => {
-      return <div>
+      return <div className={contentClass}>
       <h5 className="text-muted">Plot Arc:</h5>
       <img className="mw-100" style={{
           transition: 'all 0.5s ease'
@@ -225,39 +264,80 @@ export default class Story2 extends Story {
     }
 
     const setting = () => {
-      return <div>
-      <h5 className="text-muted">Setting:</h5>
-      <h5>{ this.state.setting }</h5>
+      return <div className={contentClass}>
+        <h5 className="text-muted">Setting:</h5>
+        <h5>{ this.state.setting }</h5>
+        { this.linker(this.state.story[0]) }
+      </div>
+    }
+
+    const hero = () => {
+      return <div className={contentClass}>
+        <h5 className="text-muted">Hero:</h5>
+        <h5>{ this.state.characters.hero }</h5>
+        { this.linker(this.state.story[1]) }
+      </div>
+    }
+
+    const foil = () => {
+      return <div className={contentClass}>
+        <h5 className="text-muted">The Foil:</h5>
+        <h4>{ this.state.characters.foil }</h4>
+        <p>Represents the conflict</p>
+        { this.linker(this.state.story[3]) }
       </div>
     }
 
     return <div>
-      <h2>Story
-        <div className="btn btn-success float-right" onClick={this.deal.bind(this, true)}>New Story</div>
-      </h2>
+    <h2>Story
+      <div className="btn btn-success float-right" onClick={this.deal.bind(this, true)}>New Story</div>
+    </h2>
+    <div className="text-center">
+      <div className="row row-eq-height">
+          <div className="col cards-sm">
+            { hero() }
+          </div>
+          <div className="col">
+            { arc() }
+          </div>
+          <div className="col cards-sm">
+           { setting() }
+          </div>
+        </div>
 
-      <table className="table table-sm text-center">
-        <tbody>
-          <tr className="main-row">
-            <td>
-              { conflict() }<br/>
-              { setting() }
-            </td>
-            <td> { moral() } </td>
-          </tr>
-          <tr className="main-row">
-            <td> { arc() } </td>
-            <td> { effect() } </td>
-          </tr>
-          <tr className="main-row">
-            <td> { plot() } </td>
-            <td> { humor() } </td>
-          </tr>
-          <tr className="main-row">
-            <td colSpan={2}> { story() } </td>
-          </tr>
-        </tbody>
-      </table>
+        <hr/>
+
+        <div className="row row-eq-height">
+          <div className="col cards-sm">
+            { conflict() }
+          </div>
+          <div className="col cards-sm">
+            { foil() }
+          </div>
+          <div className="col-5">
+            { moral() }
+          </div>
+        </div>
+        <hr/>
+        <div className="row row-eq-height">
+          <div className="col">
+            { humor() }
+          </div>
+          <div className="col">
+            { effect() }
+          </div>
+          <div className="col-5">
+            { plot() }
+          </div>
+        </div>
+
+        <br/>
+        <div className="row row-eq-height">
+          <div className="col">
+            { story() }
+          </div>
+        </div>
+      </div>
 
       <div id="card-modal" className="animated zoomIn">
         <br/>
@@ -273,7 +353,6 @@ export default class Story2 extends Story {
         <Card suit={this.state.currentCard.card.suit} rank={this.state.currentCard.card.rank} reversed={this.state.currentCard.reversed}></Card>
         <br/><br/>
       </div>
-      </div>;
-
+    </div>;
   }
 }

@@ -136,8 +136,34 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-img-overlay {
   padding: 5px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .main-row > td {
   padding-bottom: 20px;
+}
+
+.cards-sm .card {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+#main-story {
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#main-story tr {
+  background: rgba(255,255,255,0.9);
+}
+
+#main-story td {
+  border: none;
+}
+
+#main-story .badge {
+  width: 100%;
+  white-space: normal;
 }
