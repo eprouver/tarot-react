@@ -19,6 +19,29 @@ export default class Story2 extends Story {
   }
 
   deal(setState) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const list = document.querySelectorAll('.card, .enter');
+    // const transitions = ['rotateInUpLeft', 'rotateInUpRight', 'rotateInDownLeft', 'rotateInDownRight'];
+    // const transitions = ['zoomInLeft', 'zoomInRight', 'zoomInDown', 'zoomInUp'];
+    // const transitions = ['bounceInLeft', 'bounceInRight', 'bounceInDown', 'bounceInUp'];
+    const transitions = ['fadeInLeft', 'fadeInRight', 'fadeInDown', 'fadeInUp'];
+
+
+    if (list) {
+      for (let i = 0; i < list.length; i++) {
+        list[i].classList.add('animated');
+        list[i].classList.add(transitions[~~(Math.random() * 4)]);
+      }
+
+      setTimeout(() => {
+        for (let i = 0; i < list.length; i++) {
+          list[i].classList.remove('animated');
+          transitions.forEach(t => list[i].classList.remove(t));
+        }
+      }, 1000);
+    }
+
     let deck = tarot.cards.slice();
 
     let makeCard = (() => {
@@ -255,11 +278,13 @@ export default class Story2 extends Story {
     const arc = () => {
       return <div className={contentClass}>
       <h5 className="text-muted">Plot Arc:</h5>
-      <img className="mw-100" style={{
+      <img className="mw-100 enter" style={{
           transition: 'all 0.5s ease'
         }} src={arcImages[this.state.arc.name + '.png']}/>
         <br/>
-        <h2 className={this.state.arc.orientations[2] ? 'text-danger': 'text-success'}>{this.state.arc.name}</h2>
+        <div className="enter">
+          <h2 className={this.state.arc.orientations[2] ? 'text-danger': 'text-success'}>{this.state.arc.name}</h2>
+        </div>
       </div>
     }
 
@@ -331,13 +356,18 @@ export default class Story2 extends Story {
           </div>
         </div>
 
-        <br/>
+        <hr/>
         <div className="row row-eq-height">
           <div className="col">
             { story() }
           </div>
         </div>
       </div>
+
+      <hr/>
+      <h2>The End
+        <div className="btn btn-success float-right" onClick={this.deal.bind(this, true)}>New Story</div>
+      </h2>
 
       <div id="card-modal" className="animated zoomIn">
         <br/>
