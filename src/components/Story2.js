@@ -80,7 +80,7 @@ export default class Story2 extends Story {
   }
 
   render() {
-    const contentClass = "d-flex justify-content-between flex-column h-100";
+    const contentClass = "d-flex justify-content-between flex-column h-100 enter";
 
     const moral = () => {
       return <div className={contentClass}>
