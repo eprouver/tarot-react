@@ -230,6 +230,7 @@ export default class Story2 extends Story {
                <td>
                  { place('Grown Hero') }
                  {this.linker(this.state.story[6])}
+                 { pickle(this.state.characters.hero) }
                </td>
                <td></td>
              </tr>
@@ -276,6 +277,7 @@ export default class Story2 extends Story {
                <td>
                  { place('Foil Finished') }
                  {this.linker(this.state.story[8])}
+                 { pickle(this.state.characters.foil) }
                </td>
                <td></td>
              </tr>
@@ -333,10 +335,6 @@ export default class Story2 extends Story {
 
              <ul className="list-unstyled components">
                  <li>
-                     <p>Setting: { this.state.setting }</p>
-                     {inputer(this.state.story[0])}
-                 </li>
-                 <li>
                      <p>Hero: { this.state.characters.hero }</p>
                      {inputer(this.state.story[1])}
                  </li>
@@ -345,7 +343,11 @@ export default class Story2 extends Story {
                      {inputer(this.state.story[3])}
                  </li>
                  <li>
-                     <p>Conflict: { this.state.conflict.title }</p>
+                     <p>Setting: { this.state.setting }</p>
+                     {inputer(this.state.story[0])}
+                 </li>
+                 <li>
+                     <p>Conflict:  { this.state.characters.hero } has a { this.state.arc.name } story pitting { this.state.conflict.title }</p>
                      {inputer(this.state.story[2])}
                  </li>
                  <li>
@@ -422,10 +424,10 @@ export default class Story2 extends Story {
 
           <div className="row row-eq-height">
             <div className="col cards-sm">
-              { conflict() }
+              { foil() }
             </div>
             <div className="col cards-sm">
-              { foil() }
+              { conflict() }
             </div>
             <div className="col-5">
               { moral() }

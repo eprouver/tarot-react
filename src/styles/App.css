@@ -39,6 +39,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   overflow-y: scroll;
   display: none;
+  z-index: 900;
 }
 
 .close {
@@ -179,7 +180,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   top: 0;
   left: -100%;
-  z-index: 9999;
+  z-index: 300;
   background: whitesmoke;
   padding: 0 20px;
   border-right: 1px solid #c8c8c8;
