@@ -21,7 +21,6 @@ const Home = () => {
     return <div className="col-6 col-sm-4 col-xl-2" key={i}>
     <Link className="btn btn-link mw-100" to={'/card/' +  card.suit + '/' + card.rank}>
     <img className="w-75" src={images[card.image]} /><br/>
-
         {card.name}
       </Link>
     </div>

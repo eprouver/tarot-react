@@ -47,6 +47,7 @@ export default class Story2 extends Story {
     let makeCard = (() => {
       let rand = _.random(0, deck.length - 1);
       return {
+        text: '',
         card: deck.splice(rand, 1)[0],
         pickle: this.addPickle(),
         reversed: (Math.random() > 0.5)
@@ -113,7 +114,7 @@ export default class Story2 extends Story {
     };
 
     const effect = () => {
-      return <div className={contentClass}>
+      return <div className={contentClass} onClick={this.cardClick.bind(this, this.state.story[2])}>
       <h5 className="text-muted">Conflict Effect:</h5>
       <h5>{this.state.arc.orientations[2] ? 'Breaks': 'Restores'} {affectLevels[this.state.affectLevel].name}</h5>
       <p>{affectLevels[this.state.affectLevel].descrip}</p>

@@ -43,15 +43,15 @@ class Card extends React.Component {
       rank: parseInt(this.state.rank)
     });
 
-    return <div className="container">
+    return <div id="whole-card">
       <div className="row">
         <div className="col-sm animated slideInLeft text-center flex-center">
-          <h1>{card.name}:</h1>
+          <h1 className="card-name">{card.name}{(this.props.reversed? ' (reversed)': '')}:</h1>
         </div>
         <div className="col-sm animated slideInRight">
           {
             card.keywords.map((word, i) => {
-              return <h4 className="text-muted" style={{
+              return <h4 className="text-info" style={{
                   display: 'inline-block'
                 }} key={i}>{word}&nbsp;&nbsp;</h4>
             })
@@ -76,20 +76,24 @@ class Card extends React.Component {
           }
 
           <br/>
+          <div className={!_.isUndefined(this.props.reversed) && this.props.reversed ? '': 'text-success'}>
           <h3>Proper Meanings</h3>
           {
             card.meanings.light.map((word, i) => {
               return <li key={i}>{word}</li>
             })
           }
+          </div>
 
           <br/>
+          <div className={!_.isUndefined(this.props.reversed) && this.props.reversed ? 'text-danger': ''}>
           <h3>Reversed Meanings</h3>
           {
             card.meanings.shadow.map((word, i) => {
               return <li key={i}>{word}</li>
             })
           }
+          </div>
         </div>
       </div>
 
