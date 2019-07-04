@@ -64,7 +64,7 @@ export default class Story2 extends Story {
       setting: places.places[~~ (Math.random() * places.places.length)],
       characters: {
         hero: this.makeName(),
-        foil: this.makeName(),
+        foil: this.makeName()
       },
     };
 
@@ -79,8 +79,15 @@ export default class Story2 extends Story {
     return state;
   }
 
+  writeText(text) {
+    this.state.currentCard.text = text.currentTarget.value
+    this.setState({
+      currentCard: this.state.currentCard,
+    });
+  }
+
   render() {
-    const contentClass = "d-flex justify-content-between flex-column h-100 enter";
+    const contentClass = 'd-flex justify-content-between flex-column h-100 enter';
 
     const moral = () => {
       return <div className={contentClass}>
@@ -313,75 +320,157 @@ export default class Story2 extends Story {
       </div>
     }
 
-    return <div>
-    <h2>Story
-      <div className="btn btn-success float-right" onClick={this.deal.bind(this, true)}>New Story</div>
-    </h2>
-    <div className="text-center">
-      <div className="row row-eq-height">
-          <div className="col cards-sm">
-            { hero() }
-          </div>
-          <div className="col">
-            { arc() }
-          </div>
-          <div className="col cards-sm">
-           { setting() }
-          </div>
-        </div>
+    const notes = () => {
+      const inputer = (card) => {
+        return <div><textarea className="form-control" value={card.text} onChange={(e) => { card.text = e.target.value; this.setState(card); }}></textarea><br/></div>
+      }
 
-        <hr/>
+     return  <div>
+             <div className="sidebar-header">
+                 <h3>Notes</h3>
+             </div>
 
-        <div className="row row-eq-height">
-          <div className="col cards-sm">
-            { conflict() }
-          </div>
-          <div className="col cards-sm">
-            { foil() }
-          </div>
-          <div className="col-5">
-            { moral() }
-          </div>
-        </div>
-        <hr/>
-        <div className="row row-eq-height">
-          <div className="col">
-            { humor() }
-          </div>
-          <div className="col">
-            { effect() }
-          </div>
-          <div className="col-5">
-            { plot() }
-          </div>
-        </div>
+             <ul className="list-unstyled components">
+                 <li>
+                     <p>Setting: { this.state.setting }</p>
+                     {inputer(this.state.story[0])}
+                 </li>
+                 <li>
+                     <p>Hero: { this.state.characters.hero }</p>
+                     {inputer(this.state.story[1])}
+                 </li>
+                 <li>
+                     <p>Foil: { this.state.characters.foil }</p>
+                     {inputer(this.state.story[3])}
+                 </li>
+                 <li>
+                     <p>Conflict: { this.state.conflict.title }</p>
+                     {inputer(this.state.story[2])}
+                 </li>
+                 <li>
+                     <p>Explores How: </p>
+                     {inputer(this.state.moral[0])}
+                     <p>Equals</p>
+                     {inputer(this.state.moral[1])}
+                 </li>
+                 <li>
+                     <p>{this.state.humor.descrip}, {this.state.arc.orientations[2] ? 'Breaks': 'Restores'} {affectLevels[this.state.affectLevel].name} </p>
+                     <p>In Three Acts:</p>
+                     {inputer(this.state.plot[0])}
+                     {inputer(this.state.plot[1])}
+                     {inputer(this.state.plot[2])}
+                 </li>
 
-        <hr/>
-        <div className="row row-eq-height">
-          <div className="col">
-            { story() }
-          </div>
-        </div>
-      </div>
+                 <li>
+                   <p>Major trial</p>
+                   {inputer(this.state.story[4])}
+                 </li>
+                 <li>
+                   <p>Hero reinvests</p>
+                   {inputer(this.state.story[5])}
+                 </li>
+                 <li>
+                   <p>Finale</p>
+                   {inputer(this.state.story[7])}
+                 </li>
+                 <li>
+                   <p>New World</p>
+                   {inputer(this.state.story[9])}
+                 </li>
+                 <li>
+                   <p>Hero Finished</p>
+                  {inputer(this.state.story[6])}
+                 </li>
+                 <li>
+                   <p>Foil Finished</p>
+                  {inputer(this.state.story[8])}
+                 </li>
+             </ul>
+         </div>
+    }
 
-      <hr/>
-      <h2>The End
+    return <div id="wrapper">
+    <nav id="sidebar" className={this.state.sidebar ? 'active': ''}>
+
+            <div id="dismiss" className="float-right" onClick={() => { this.setState({sidebar: false}); }}>
+                <i className="fas fa-arrow-left"></i>
+            </div>
+    { notes() }
+
+    </nav>
+
+    <div id="content">
+      <h2>
+        <span onClick={() => { this.setState({sidebar: true}); }}>Story</span>
         <div className="btn btn-success float-right" onClick={this.deal.bind(this, true)}>New Story</div>
       </h2>
+      <div className="text-center">
+        <div className="row row-eq-height">
+            <div className="col cards-sm">
+              { hero() }
+            </div>
+            <div className="col">
+              { arc() }
+            </div>
+            <div className="col cards-sm">
+             { setting() }
+            </div>
+          </div>
 
-      <div id="card-modal" className="animated zoomIn">
-        <br/>
-        <div className="container">
-          <h1 className="text-center">
-            <span className="close float-right" onClick={() => {
-                document.getElementById('card-modal').style.display = 'none';
-                document.body.style.overflow = 'auto';
-              }}>&times;</span>
-          </h1>
+          <hr/>
+
+          <div className="row row-eq-height">
+            <div className="col cards-sm">
+              { conflict() }
+            </div>
+            <div className="col cards-sm">
+              { foil() }
+            </div>
+            <div className="col-5">
+              { moral() }
+            </div>
+          </div>
+          <hr/>
+          <div className="row row-eq-height">
+            <div className="col">
+              { humor() }
+            </div>
+            <div className="col">
+              { effect() }
+            </div>
+            <div className="col-5">
+              { plot() }
+            </div>
+          </div>
+
+          <hr/>
+          <div className="row row-eq-height">
+            <div className="col">
+              { story() }
+            </div>
+          </div>
         </div>
-        <br/>
-        <Card suit={this.state.currentCard.card.suit} rank={this.state.currentCard.card.rank} reversed={this.state.currentCard.reversed}></Card>
-        <br/><br/>
+
+        <hr/>
+        { notes() }
+        <h2>The End
+          <div className="btn btn-success float-right" onClick={this.deal.bind(this, true)}>New Story</div>
+        </h2>
+
+        <div id="card-modal" className="animated zoomIn">
+          <br/>
+          <div className="container">
+            <h1 className="text-center">
+              <span className="close float-right" onClick={() => {
+                  document.getElementById('card-modal').style.display = 'none';
+                  document.body.style.overflow = 'auto';
+                }}>&times;</span>
+            </h1>
+          </div>
+          <br/>
+          <Card suit={this.state.currentCard.card.suit} rank={this.state.currentCard.card.rank} reversed={this.state.currentCard.reversed} text={this.state.currentCard.text || ""} handleChange={this.writeText.bind(this)}></Card>
+          <br/><br/>
+        </div>
       </div>
     </div>;
   }

@@ -30,7 +30,11 @@ class Card extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({suit: nextProps.suit, rank: nextProps.rank});
+    this.setState({suit: nextProps.suit, rank: nextProps.rank, text: nextProps.text});
+  }
+
+  toggleImage() {
+    this.setState({writing: !this.state.writing});
   }
 
   render() {
@@ -57,7 +61,10 @@ class Card extends React.Component {
 
       <div className="row">
         <div className="col-sm animated slideInLeft text-center">
-          <img className={"mw-100 " + (this.props.reversed? 'reversed': '')} src={images[card.image]}/>
+          <div className="toggler" onDoubleClick={this.toggleImage.bind(this)}>
+            <img id="reading-image" className={"mw-100 " + (this.props.reversed? 'reversed': '')  + (!this.state.writing ? ' active': '')} src={images[card.image]}/>
+            <textarea id="reading-input" rows="10" className={"form-control " + (this.state.writing ? ' active': '')} value={this.state.text} onChange={this.props.handleChange || _.noop}></textarea>
+          </div>
         </div>
         <div className="col-sm animated slideInRight">
           <br/>
