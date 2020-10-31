@@ -10,6 +10,8 @@ import Reading from './Reading.js';
 import Story from './Story.js';
 import Story2 from './Story2.js';
 import Kcard from './Kcard.js';
+import Circle from './Circle.js';
+import Song from './Song.js';
 
 
 const Main = () => {
@@ -25,10 +27,16 @@ const Main = () => {
           <Link className="nav-link" to="/reading">Reading</Link>
         </li>
         <li className="nav-item">
+          <Link className="nav-link" to="/song">Song</Link>
+        </li>
+        <li className="nav-item">
           <Link className="nav-link" to="/story">Tale</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/story2">Story</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/circle">Circle</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/layout">New Layout</Link>
@@ -44,8 +52,10 @@ const Main = () => {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/reading" component={Reading}/>
+          <Route path="/song" component={Song}/>
           <Route path="/story" component={Story}/>
           <Route path="/story2" component={Story2}/>
+          <Route path="/circle" component={Circle}/>
           <Route path="/layout" component={Layout}/>
           <Route path="/card/:suit/:rank" component={Card}/>
           <Route path="/kcard" component={Kcard}/>

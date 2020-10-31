@@ -98,6 +98,38 @@ export const conflicts = [
   }
 ];
 
+export const endings = [{
+  "name": "circular ending",
+  "explain": "The story circles back to the beginning. Sometimes an author will end with the same idea or similar/exact words as the beginning of the story."
+}, {
+  "name": "cliffhanger ending",
+  "explain": "The story ends by leaving the reader hanging or wanting more. Writers use this strategy to tease readers or excite them into reading more (the next chapter or the next book in a series)."
+}, {
+  "name": "dialogue ending",
+  "explain": "The story ends with an important conversation or quote. By ending with a quote, the writer captivates the audience by making the characters more realistic and revealing their personalities."
+}, {
+  "name": "funny thought/humor ending",
+  "explain": "The story ends with a funny thought or something that makes the reader laugh. This helps to make the ending more memorable to the reader."
+}, {
+  "name": "image ending",
+  "explain": "The story ends with an important scene that the writer shows the reader through vivid details. By showing and not telling, the writer touches the reader's emotions and conveys a mood."
+}, {
+  "name": "lesson or moral ending",
+  "explain": "The main character in the story grows, changes, or learns something at the end of the story."
+}, {
+  "name": "question ending",
+  "explain": "The story ends with a question to keep the reader thinking. The question usually involves the reader, and writers use this strategy to make their writing memorable."
+}, {
+  "name": "reflection ending",
+  "explain": "The narrator of the story steps back and reflects on what just happened. He or she often looks back on an experience and determines the importance of that experience, what was learned, etc."
+}, {
+  "name": "surprise ending",
+  "explain": "The story takes you where you didn't expect it to go. Sometimes this ending is called a twist ending (plot twist) because the story takes an exciting turn."
+}, {
+  "name": "warm fuzzy/capturing emotion ending",
+  "explain": "The story ends leaving you feeling emotional or good inside. A good writer tugs at the heart strings to make the reader feel something."
+}];
+
 export const importAll = function(r) {
   let images = {};
   r.keys().map((item) => {
