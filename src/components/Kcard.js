@@ -33,6 +33,9 @@ class Kcard extends React.Component {
     let picked = {};
     picked.card = this.state.deck.splice(rand, 1)[0];
     picked.reversed = (Math.random() > 0.5);
+    const side = picked.reversed ? 'shadow' : 'light';
+    const meaning = picked.card.meanings;
+    picked.expand = meaning[side][~~(Math.random() * meaning[side].length)];
     cards.push(picked);
 
     this.setState({cards: cards});
@@ -66,41 +69,39 @@ class Kcard extends React.Component {
                 pos.reversed
                 ? 'reversed'
                 : '')} src={images[pos.card.image]}/><br/>
-            <div className="card-img-overlay">
-              <h1>
-                {
+            <div className="card-img-overlay d-flex justify-content-around flex-column">
+              <div>
+                <h1>&nbsp; &nbsp;{
                   pos.reversed
-                    ? 'No'
-                    : 'Yes'
-                }
-              </h1>
-              <p style={{'text-transform': 'capitalize'}}>{pos.card.name}
-                {
-                  pos.reversed
-                    ? ' (Reversed)'
-                    : ''
-                }</p>
-              <h6>{
+                    ? '❌ No ❌'
+                    : '✔️ Yes ✔️'
+                }&nbsp; &nbsp;</h1>
+              </div>
+              <h4 style={{textTransform: 'initial'}}>
+              {
+                pos.expand
+              }.
+              </h4>
+              <h6 className="text-warning">{
                   pos.card.keywords.map((word, i) => {
                     return <span className="badge" key={i}>
                       {word}&nbsp;
                     </span>
                   })
                 }</h6>
-
             </div>
           </div>
         </div>
       </div>
     }
     return <div>
-
+            <h2>Ask Yes or No Questions:</h2>
       <div className="row">
         {this.state.cards.map(linker)}
         <div className="col-12 col-sm-4 col-lg-3 col-xl-2 text-center">
           <div style={{cursor: 'pointer'}} className="alert alert-success btn-block text-center mt-3" onClick={this.pickCard.bind(this)}>
             <span className="question">?</span>
-            <p>Ask a Yes or No Question</p>
+            <p>Ask!</p>
             <p>Cards Left: {this.state.deck.length}</p>
           </div>
         </div>

@@ -21,24 +21,25 @@ import names from '../sources/names.json';
 
 let deck = tarot.cards.slice();
 
-let makeCard = (() => {
-  let rand = _.random(0, deck.length - 1);
-  return {
-    text: '',
-    card: deck.splice(rand, 1)[0],
-    reversed: (Math.random() > 0.5)
-  };
-});
-
 export default class Circle extends Story {
+  makeCard () {
+    const rand = _.random(0, deck.length - 1);
+    const reversed = (Math.random() > 0.5);
+    const card = deck.splice(rand, 1)[0];
+    return {
+      card,
+      reversed,
+      mean: this.getMeaning(card.meanings, !reversed),
+    };
+  }
 
   makeName() {
     return `${names.firstNames[~~ (Math.random() * names.firstNames.length)]} ${names.lastNames[~~ (Math.random() * names.lastNames.length)]}`;
   }
 
   makeCharacter() {
-    const morality = makeCard();
-    const control = makeCard();
+    const morality = this.makeCard();
+    const control = this.makeCard();
 
     morality.card.meanings.light = _.shuffle(morality.card.meanings.light);
     morality.card.meanings.shadow = _.shuffle(morality.card.meanings.shadow);
@@ -104,9 +105,9 @@ export default class Circle extends Story {
     }
 
     let state = {
-      moral: new Array(2).fill().map(makeCard),
+      moral: new Array(2).fill().map(this.makeCard.bind(this)),
       arc: arcs[~~ (Math.random() * arcs.length)],
-      plot: new Array(8).fill().map(makeCard),
+      plot: new Array(8).fill().map(this.makeCard.bind(this)),
       humor: humors[~~ (Math.random() * humors.length)],
       affectLevel: ~~ (Math.random() * 3),
       conflict: conflicts[~~ (Math.random() * conflicts.length)],
@@ -152,15 +153,14 @@ export default class Circle extends Story {
       this.setState(this.state);
     };
 
-    return <div className="card bg-dark text-white" style={{
+    return <div className="card bg-dark text-white p-1" style={{
         maxWidth: '35em',
         display: 'inline-block'
       }} key={i}>
       <div>
-        <br/>
         <img style={{
             opacity: 0.35
-          }} className={'card-img w-75 ' + (
+          }} className={'card-img ' + (
             pos.reversed
             ? 'reversed'
             : '')} src={images[pos.card.image]}/><br/>
@@ -180,9 +180,7 @@ export default class Circle extends Story {
           }
 
           <br/>
-
         </div>
-        <br/>
       </div>
     </div>
   }
@@ -426,8 +424,14 @@ export default class Circle extends Story {
               </div>
 
               <div className="col text-center">
-              <img style={{height: '128px'}} onClick={this.cardClick.bind(this, character.morality)} className={'mw-50 ' + (character.morality.reversed ? 'reversed' : '')} src={images[character.morality.card.image]}/>
-              <img style={{height: '128px'}} onClick={this.cardClick.bind(this, character.control)} className={'mw-50 ' + (character.control.reversed ? 'reversed' : '')} src={images[character.control.card.image]}/>
+                <div className="row">
+                  <div className="col-6">
+                    <img style={{height: '128px'}} onClick={this.cardClick.bind(this, character.morality)} className={'mw-50 ' + (character.morality.reversed ? 'reversed' : '')} src={images[character.morality.card.image]}/>
+                  </div>
+                  <div className="col-6">
+                    <img style={{height: '128px'}} onClick={this.cardClick.bind(this, character.control)} className={'mw-50 ' + (character.control.reversed ? 'reversed' : '')} src={images[character.control.card.image]}/>
+                  </div>
+                </div>
               </div>
 
               <div className="col">
@@ -572,6 +576,14 @@ export default class Circle extends Story {
           </div>
           <br/>
 
+          <div  className="p-2" style={{
+            width: '100%',
+            overflowX: 'scroll',
+            boxShadow: 'inset 0 0 20px #ccc'
+          }}>
+          <div style={{
+            width: '1800px',
+          }}>
           {plot()}
 
           {
@@ -580,6 +592,8 @@ export default class Circle extends Story {
               { characterArcsOnly(character) }
             </div>)
           }
+          </div>
+          </div>
 
         </div>
 

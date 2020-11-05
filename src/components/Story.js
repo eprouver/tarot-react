@@ -33,11 +33,14 @@ class Story extends React.Component {
     let deck = tarot.cards.slice();
 
     let makeCard = (() => {
-      let rand = _.random(0, deck.length - 1);
+      const rand = _.random(0, deck.length - 1);
+      const reversed = (Math.random() > 0.5);
+      const card = deck.splice(rand, 1)[0];
       return {
-        card: deck.splice(rand, 1)[0],
+        card,
         pickle: this.addPickle(),
-        reversed: (Math.random() > 0.5)
+        reversed,
+        mean: this.getMeaning(card.meanings, !reversed),
       };
     });
 
@@ -82,6 +85,11 @@ class Story extends React.Component {
     document.body.style.overflow = 'auto';
   }
 
+  getMeaning(meaning, reversed) {
+    const side = reversed ? 'light' : 'shadow';
+    return meaning[side][~~(Math.random() * meaning[side].length)];
+  }
+
   linker(pos, i) {
     if (!pos) {
       return '';
@@ -89,32 +97,36 @@ class Story extends React.Component {
 
     return <div className="card bg-dark text-white" key={i}>
       <div onClick={this.cardClick.bind(this, pos)}>
-        <br/>
         <img style={{
-            opacity: 0.35
-          }} className={'card-img w-75 ' + (
+            opacity: 0.35,
+          }} className={'card-img p-1 ' + (
             pos.reversed
             ? 'reversed'
             : '')} src={images[pos.card.image]}/><br/>
-        <div className="card-img-overlay">
+        <div className="card-img-overlay pt-3">
           <p style={{
               'textTransform' : 'capitalize'
-            }}>{pos.card.name}
+            }}><u>{pos.card.name}
             {
               pos.reversed
                 ? ' (Reversed)'
                 : ''
-            }</p>
-          {
-            pos.card.keywords.map((word, i) => {
-              return <div key={i}>
-                {word}&nbsp;
-              </div>
+            }</u></p>
+
+            <h5><strong>{
+              pos.mean
+            }</strong></h5>
+
+            <br/>
+          <p>{
+            pos.card.keywords.map((word, i, arr) => {
+              return <span key={i}>
+                {word}{i < arr.length - 1 ? ',': ''}&nbsp;
+              </span>
             })
-          }
+          }</p>
 
         </div>
-        <br/>
       </div>
     </div>
   }

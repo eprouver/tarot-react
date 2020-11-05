@@ -585,8 +585,8 @@ class Story extends React.Component {
     };
   }
 
-  getMeaning(meaning) {
-    const side = Math.random() > 0.5? 'light' : 'shadow';
+  getMeaning(meaning, reversed) {
+    const side = reversed ? 'light' : 'shadow';
 
     return meaning[side][~~(Math.random() * meaning[side].length)];
   }
@@ -603,30 +603,31 @@ class Story extends React.Component {
   }
 
   linker(pos, i) {
-    return <div className="text-center card bg-dark text-white" key={i}>
+    pos.reversed =  Math.random() > 0.5;
+    return <div className="p-2 text-center rounded bg-dark border-dark text-white" key={i}>
       <div onClick={this.cardClick.bind(this, pos)}>
-        <br/>
         <img style={{
-            opacity: 0.35
-          }} className={'card-img w-75 ' + (
+            opacity: 0.35,
+            maxHeight: '80vh',
+          }} className={'card-img transition ' + (
             pos.reversed
             ? 'reversed'
             : '')} src={images[pos.card.image]}/><br/>
-        <div className="card-img-overlay d-flex justify-content-around flex-column">
-          <div className="display-4">{
-            this.getMeaning(pos.card.meanings)
+        <div className="m-4 card-img-overlay d-flex justify-content-between flex-column">
+          <div className="song-theme">{
+            this.getMeaning(pos.card.meanings, !pos.reversed)
           }</div>
 
-          <h5>{
+          <h5 className="m-4">{
             pos.card.keywords.map((word, i) => {
               return <span className="badge" key={i}>
                 {word}&nbsp;&nbsp;&nbsp;
               </span>
             })
           }</h5>
+          <br/>
 
         </div>
-        <br/>
       </div>
     </div>
   }
@@ -667,6 +668,8 @@ class Story extends React.Component {
       mainProgression,
       alternatives,
       allChordsInKey,
+      wordOne: _.sample(pickles.nouns),
+      wordTwo: _.sample(pickles.nouns),
     });
   };
 
@@ -724,46 +727,61 @@ class Story extends React.Component {
   render() {
     return <div>
       <div style={{maxWidth: '1200px', margin: '0 auto'}}>
-      <h1>Song
-        <div className="btn btn-success float-right" onClick={this.deal.bind(this)}>New Song</div>
+      <h1>Song Along
+        <div className="btn btn-success float-right" onClick={this.deal.bind(this)}>Start Over</div>
       </h1>
       <hr/>
       {(() => {
         if (this.state.currentProg.length) {
-          return <div><div className="row text-center">
-            <div className="col-7">
-              <p className="songy">{
-                this.state.currentProg.map((note, i) => {
-                  return (<span className="badge badge-primary" key={i}>{note.name}</span>)
-                })
-              }</p>
+          return <div>
 
-              <p className="songy">{this.state.wordOne}</p>
-              <p className="songy">{this.state.wordTwo}</p>
-              <div className="text-left border rounded p-2 text-muted">
-              { this.songStyle() }
-              </div>
+          <div className="text-left border rounded p-2 text-muted">
+          { this.songStyle() }
+          </div>
+          <br/>
+
+          <div className="row text-center">
+            <div className="col-7">
+
+            <div className="bg-dark p-2 rounded">
+            <div className="wordy bg-dark p-5 text-white rounded-top" style={{backgroundImage: `url(https://source.unsplash.com/600x200/weekly?${escape(this.state.wordOne)})`}}>
+              <span>{this.state.wordOne}</span>
+            </div>
+            <div className="wordy bg-dark p-5 text-white rounded-bottom" style={{backgroundImage: `url(https://source.unsplash.com/600x200/weekly?${escape(this.state.wordTwo)})`}}>
+              <span>{this.state.wordTwo}</span>
+            </div>
+            </div>
+              <br/>
+              <div className="songy">{
+                this.state.currentProg.map((note, i) => {
+                  return (<div className="bg-primary d-inline-block rounded-circle span text-white p-2" key={i}>{note.name}</div>)
+                })
+              }</div>
+              <br/>
 
               {allChordsInKey.map((note, i) => {
                 return <ToggleButton key={i} message={note.name}/>
               })}
+
             </div>
             <div className="col-5">
               {this.linker(this.state.currentCard)}
             </div>
           </div>
-          <br/><br/>
+
+          <br/>
           <hr/>
+          <br/>
           </div>
 
         } else {
-          return <h1>Select Chord Progression:</h1>
+          return <div className="alert alert-primary">Select a key and chord progression:</div>
         }
       })()}
 
       <div className="row">
       <div className="col-6">
-      <select className="form-control" value={this.state.progression} onChange={this.progChange.bind(this)}>
+      <select className="form-control" value={_.indexOf(progressions, progression)} onChange={this.progChange.bind(this)}>
       {
         progressions.map((prog, i) => {
           return <option key={i} value={i}>{prog.name}</option>
@@ -772,7 +790,7 @@ class Story extends React.Component {
       </div>
 
       <div className="col-6">
-      <select className="form-control" onChange={this.modeChange.bind(this)}>
+      <select className="form-control" value={_.indexOf(modes, mode)} onChange={this.modeChange.bind(this)}>
       {
         modes.map((mode, i) => {
           return <option key={i} value={i}>{mode.name}</option>
@@ -780,7 +798,7 @@ class Story extends React.Component {
       }</select>
       </div>
       </div>
-      <br/><br/>
+      <br/>
 
       <div className="row">
         <div className="col">
@@ -817,7 +835,18 @@ class Story extends React.Component {
 
         </div>
         <div className="col">
+        <ol>
+          <li>DxDxDxDx</li>
+          <li>DxDUDxDU</li>
+          <li>DxxxDxDU</li>
+          <li>DUDUDUDU</li>
+          <li>DxDUxUDU</li>
+          <li>DxxxDxxUxUDxDUDU</li>
+          <li>DxDxxUDU</li>
+        </ol>
+
         <Metronome/>
+
         </div>
         </div>
         </div>

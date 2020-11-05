@@ -45,14 +45,17 @@ export default class Story2 extends Story {
     let deck = tarot.cards.slice();
 
     let makeCard = (() => {
-      let rand = _.random(0, deck.length - 1);
+      const rand = _.random(0, deck.length - 1);
+      const reversed = (Math.random() > 0.5);
+      const card = deck.splice(rand, 1)[0];
       return {
-        text: '',
-        card: deck.splice(rand, 1)[0],
+        card,
         pickle: this.addPickle(),
-        reversed: (Math.random() > 0.5)
+        reversed,
+        mean: this.getMeaning(card.meanings, !reversed),
       };
     });
+
 
     let state = {
       moral: new Array(2).fill().map(makeCard),
